@@ -1,6 +1,6 @@
 # Variables
 FC ?= gfortran
-FFLAGS ?= -g -Wall -pg
+FFLAGS ?= -g -Wall -pg -O2 -ffast-math -funroll-all-loops
 #LDFLAGS ?= -pg      # También se necesita para el enlazado
 
 

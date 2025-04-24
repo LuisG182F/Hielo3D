@@ -39,7 +39,7 @@ use radio2
 
 implicit none
 
-integer,parameter                       ::   filas=50,columnas=50, ancho=50, stoptime=100
+integer,parameter                       ::   filas=25,columnas=25, ancho=25, stoptime=100
 character(len=60),parameter             ::   radio_fijo = 's'
 
 
