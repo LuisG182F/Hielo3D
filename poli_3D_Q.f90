@@ -43,8 +43,8 @@ implicit none
 integer, parameter :: N = 500
 
 ! Usar N para definir las dimensiones de las matrices
-integer, parameter :: filas = N, columnas = N, ancho = 100, stoptime = 100
-character(len=60), parameter :: radio_fijo = 's'
+integer, parameter :: filas = N, columnas = N, ancho = 100, stoptime = 100000
+character(len=60), parameter :: radio_fijo = 'n'
 
 
 
@@ -53,7 +53,7 @@ character(len=60), parameter :: radio_fijo = 's'
 !ancho 5 para radio 0
 !ancho 7 para radio 1
 !ancho 9 para radio 2
-integer,parameter                       ::   paso=10,paso_area=10,paso_luz=100
+integer,parameter                       ::   paso=1000,paso_area=100,paso_luz=1000
 !efectos probailistico de las particulas_ fraccion de particulas moviles
 real(pr),parameter                      ::   casino=1.0
 
@@ -128,7 +128,7 @@ distri_b = 'uniform'
 
 time0 = 0
 energy = 3
-precip ='puro'
+precip ='pi'
           
 fraccion_v = 0.12_pr                                        !fraccion de materia
 
@@ -281,7 +281,7 @@ do s=1,Q
 end do
 
 
-!call graph(c,0,directorio,conce,filas,columnas,ancho,delta,distri_b)
+call graph(c,0,directorio,conce,filas,columnas,ancho,delta,distri_b)
 call mask(c,0,directorio,conce,filas,columnas,ancho,delta,distri_b)
 
 !call tresD(c,0,directorio,conce,filas,columnas,ancho)
