@@ -39,9 +39,12 @@ use radio2
 
 implicit none
 
-integer,parameter                       ::   filas=25,columnas=25, ancho=25, stoptime=100
-character(len=60),parameter             ::   radio_fijo = 's'
+! Definir N como una constante
+integer, parameter :: N = 500
 
+! Usar N para definir las dimensiones de las matrices
+integer, parameter :: filas = N, columnas = N, ancho = 100, stoptime = 100
+character(len=60), parameter :: radio_fijo = 's'
 
 
 
