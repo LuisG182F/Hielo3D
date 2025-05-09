@@ -40,10 +40,10 @@ use radio2
 implicit none
 
 ! Definir N como una constante
-integer, parameter :: N = 500
+integer, parameter :: N = 100
 
 ! Usar N para definir las dimensiones de las matrices
-integer, parameter :: filas = N, columnas = N, ancho = 100, stoptime = 100000
+integer, parameter :: filas = N, columnas = N, ancho = N, stoptime = 10
 character(len=60), parameter :: radio_fijo = 'n'
 
 
@@ -53,7 +53,7 @@ character(len=60), parameter :: radio_fijo = 'n'
 !ancho 5 para radio 0
 !ancho 7 para radio 1
 !ancho 9 para radio 2
-integer,parameter                       ::   paso=1000,paso_area=100,paso_luz=1000
+integer,parameter                       ::   paso=10,paso_area=10,paso_luz=100
 !efectos probailistico de las particulas_ fraccion de particulas moviles
 real(pr),parameter                      ::   casino=1.0
 
@@ -67,8 +67,8 @@ integer                                 ::   jfl,jkl,jcl,jfr,jkr,jcr,volu,pastor
 !factores relacionados con la funcion de energia superficial y con la posibilidad de rotacion de los granos
 integer                                 ::   energy
 integer                                 ::   Q,numero_g,e,vecino,contar,contar1,mama,u
-integer                                 ::   pepo,mm,nn,ll,ms,Q_p,veci,borde,bordei,bordef,centro,bordeCT
-integer                                 ::   matrix,tarzan,centro0,centro1,centro2,radius,mat_total1
+integer                                 ::   mm,nn,ll,ms,Q_p,veci,borde,bordei,bordef,centro,bordeCT
+integer                                 ::   matrix,tarzan,centro0,centro00,centro1,centro2,radius,mat_total1
 real(pr)                                ::   radio_g,fraccion_v,deltaGG,xx,ww,angulote,mini1,mini2
 real(pr)                                ::   Hi,difa,difa1,ruleta,area_g
 integer,dimension(filas,columnas,ancho) ::   c
@@ -87,7 +87,13 @@ character(len=10000)                    ::   directorio,directorio1
 
 call rand0
 
-
+!parametros para arreglar warnings
+veci=0
+bordect=0
+matrix=0
+centro=0
+bordei=0
+u=1
 
 
 Q = ancho * filas * columnas	
@@ -130,7 +136,7 @@ time0 = 0
 energy = 3
 precip ='pi'
           
-fraccion_v = 0.12_pr                                        !fraccion de materia
+fraccion_v = 3.0_pr                                        !fraccion de materia
 
 
 
@@ -199,7 +205,8 @@ do i=1,filas
 
 do j=1,columnas
 
-233 s=int(Q*Rand())+1
+233 continue
+s=int(Q*Rand())+1
 
 if (s==0) goto 233
 
@@ -211,7 +218,7 @@ end do
 
 end do
 
- end if
+end if
 
  
    do k=1,Q
@@ -268,7 +275,10 @@ do k=1,ancho
    do i=1,filas
       do j=1,columnas
          s=c(i,j,k)
-         orient1(s)=orient1(s)+1                                                                                              
+          if (s /=0  ) then
+         orient1(s)=orient1(s)+1  
+          else
+          end if                                                                                       
       end do
    end do
 end do
@@ -284,7 +294,7 @@ end do
 call graph(c,0,directorio,conce,filas,columnas,ancho,delta,distri_b)
 call mask(c,0,directorio,conce,filas,columnas,ancho,delta,distri_b)
 
-!call tresD(c,0,directorio,conce,filas,columnas,ancho)
+call tresD(c,0,directorio,conce,filas,columnas,ancho)
 !call distri(orient,0,directorio,conce,filas,columnas,ancho)
 !call misori(c,time,directorio,conce,filas,columnas,ancho)
 
@@ -465,14 +475,17 @@ print*,time
 !*****************************************************************************************
     
    if (radio_fijo=='n') then
-   
+
+   radius=8
    centro1=radiopp1(c,ii,jj,kk,filas,columnas,ancho)
    centro2=radiopp2(c,ii,jj,kk,filas,columnas,ancho)
    centro0=radiopp0(c,ii,jj,kk,filas,columnas,ancho)
+   centro00=radiopp00(c,ii,jj,kk,filas,columnas,ancho)
    
    if ((centro1==0)) radius=2
    if ((centro0==0) .and. (centro2==1)) radius=1
-   if ((centro0==1))  radius=0
+   if ((centro00==1))  radius=0
+   if (radius==8) goto 145
    else
    end if
    
@@ -484,7 +497,7 @@ print*,time
                     
                          case(0)
                          
-                                
+                                print*, radius
                                bordei=Vec(c,ii,jj,kk,filas,columnas,ancho); 
                                matrix=Vecm(radius,ii,jj,kk,filas,columnas,ancho);
 							   !centro=Vet(c,ii,jj,kk,filas,columnas,ancho)
@@ -864,8 +877,8 @@ end do
 !write(*,*) time
 if ((mod(time,paso)==0) .and. (time/=0)) then
      call graph(c,time,directorio,conce,filas,columnas,ancho,delta,distri_b)
-     !call mask(c,time,directorio,conce,filas,columnas,ancho,delta,distri_b)
-	 !call tresD(c,time,directorio,conce,filas,columnas,ancho) 
+     call mask(c,time,directorio,conce,filas,columnas,ancho,delta,distri_b)
+       call tresD(c,time,directorio,conce,filas,columnas,ancho) 
      !call distri(orient,time,directorio,conce,filas,columnas,ancho)
      !call misori(c,time,directorio,conce,filas,columnas,ancho)
      end if

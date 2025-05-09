@@ -223,7 +223,7 @@ if (distri_b=='uniforme') then
 Q=filas*columnas*ancho 
   
 factor1=1.0/(Q)*255.0 
-factor2=1.0/(Q)*0
+factor2=1.0/(Q)*255.0
   
 
  
@@ -257,7 +257,7 @@ do i=1,filas
            if (c(i,j,tapa)==0) then 
 	   write(100,*) color,0,0 
 	   else 
-	     write(100,*) int(c(i,j,tapa)*factor1),int(factor1*c(i,j,tapa)),int(factor1*c(i,j,tapa)) 
+	     write(100,*) int(c(i,j,tapa)*factor1),int(factor1*c(i,j,tapa)),int(factor2*c(i,j,tapa)) 
 	   end if 
     end do 
 
@@ -269,7 +269,7 @@ do i=1,filas
           if (c(i,cara1,k)==0) then 
 	      write(100,*) color,0,0 
 	  else 
-	      write(100,*) int(c(i,cara1,k)*factor1),int(c(i,cara1,k)*factor1),int(c(i,cara1,k)*factor1) 
+	      write(100,*) int(c(i,cara1,k)*factor1),int(c(i,cara1,k)*factor1),int(c(i,cara1,k)*factor2) 
 	  end if 
     end do 
 
@@ -297,7 +297,7 @@ do k=1,ancho
       if (c(cara2,j,k)==0) then  
          write(100,*) color,0,0 
       else 
-         write(100,*) int(c(cara2,j,k)*factor1),int(c(cara2,j,k)*factor1),int(c(cara2,j,k)*factor1)  
+         write(100,*) int(c(cara2,j,k)*factor1),int(c(cara2,j,k)*factor1),int(c(cara2,j,k)*factor2)  
       end if 
     end do 
 
@@ -816,7 +816,7 @@ end function
 subroutine misori(c,time,directorio,conce,filas,columnas,ancho)
 integer                                    :: filas,columnas,ancho,s1,s2,s3,s4,time,Q,difa
 !integer,dimension(filas*columnas*ancho)   :: orient1
-integer,dimension (26)                     :: veci
+integer,dimension (26)                     :: vveci
 character(100)                             :: archivo
 character(60)                              :: timew,conce
 character(100)                             :: directorio
@@ -844,34 +844,34 @@ do s3=1,ancho
  jfr = s1+1 ;  if (jfr > filas)    jfr = 1
  jcr = s2+1 ;  if (jcr > columnas) jcr = 1
  jkr = s3+1 ;  if (jkr > ancho)    jkr = 1
- Veci(1) = c(jfl, jcl,jkl)
- Veci(2) = c(jfl, s2,jkl)
- Veci(3) = c(jfl, jcr,jkl)
- Veci(4) = c(s1, jcl,jkl)
- Veci(5) = c(s1, jcr,jkl)
- Veci(6) = c(jfr, jcl,jkl)
- Veci(7) = c(jfr, s2,jkl)
- Veci(8) = c(jfr, jcr,jkl) 
- Veci(9) = c(jfl, jcl,s3)
- Veci(10) = c(jfl, s2,s3)
- Veci(11) = c(jfl, jcr,s3)
- Veci(12) = c(s1, jcl,s3)
- Veci(13) = c(s1, jcr,s3)
- Veci(14) = c(jfr, jcl,s3)
- Veci(15) = c(jfr, s2,s3)
- Veci(16) = c(jfr, jcr,s3)
- Veci(17) = c(jfl, jcl,jkr)
- Veci(18) = c(jfl, s2,jkr)
- Veci(19) = c(jfl, jcr,jkr)
- Veci(20) = c(s1, jcl,jkr)
- Veci(21) = c(s1, jcr,jkr)
- Veci(22) = c(jfr, jcl,jkr)
- Veci(23) = c(jfr, s2,jkr)
- Veci(24) = c(jfr, jcr,jkr)
- Veci(25) = c(s1, s2,jkl)
- Veci(26) = c(s1, s2,jkr)
+ vveci(1) = c(jfl, jcl,jkl)
+ vveci(2) = c(jfl, s2,jkl)
+ vveci(3) = c(jfl, jcr,jkl)
+ vveci(4) = c(s1, jcl,jkl)
+ vveci(5) = c(s1, jcr,jkl)
+ vveci(6) = c(jfr, jcl,jkl)
+ vveci(7) = c(jfr, s2,jkl)
+ vveci(8) = c(jfr, jcr,jkl) 
+ vveci(9) = c(jfl, jcl,s3)
+ vveci(10) = c(jfl, s2,s3)
+ vveci(11) = c(jfl, jcr,s3)
+ vveci(12) = c(s1, jcl,s3)
+ vveci(13) = c(s1, jcr,s3)
+ vveci(14) = c(jfr, jcl,s3)
+ vveci(15) = c(jfr, s2,s3)
+ vveci(16) = c(jfr, jcr,s3)
+ vveci(17) = c(jfl, jcl,jkr)
+ vveci(18) = c(jfl, s2,jkr)
+ vveci(19) = c(jfl, jcr,jkr)
+ vveci(20) = c(s1, jcl,jkr)
+ vveci(21) = c(s1, jcr,jkr)
+ vveci(22) = c(jfr, jcl,jkr)
+ vveci(23) = c(jfr, s2,jkr)
+ vveci(24) = c(jfr, jcr,jkr)
+ vveci(25) = c(s1, s2,jkl)
+ vveci(26) = c(s1, s2,jkr)
 do s4=1,26
-    difa=abs((veci(s4)-c(s1,s2,s3))*90.0/Q)
+    difa=abs((vveci(s4)-c(s1,s2,s3))*90.0/Q)
     if (difa/=0) then 
        write(99,*) difa
     end if

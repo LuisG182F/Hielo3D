@@ -304,10 +304,11 @@ end function
 
 Integer function Vec(c,ii,jj,kk,filas,columnas,ancho) 
 IMPLICIT NONE  
-integer                                        :: filas,columnas,ancho,rrrr 
+integer                                        :: filas,columnas,ancho,rrrr, luis
 integer                                        :: ii,jj,kk,jfl,jfr,jcl,jcr,jkl,jkr,s 
 integer,dimension(filas,columnas,ancho)        :: c 
 integer, dimension(26)                         :: vvecinos 
+
 
 Vec=0               
 
@@ -348,6 +349,7 @@ Vec=0
 do s=1,26 
 if (vvecinos(s)/=0) rrrr=s 
 end do 
+
 
 do s=1,26 
 if ((vvecinos(s)/=vvecinos(rrrr)) .and. (vvecinos(s)/=0)) vec=1 
