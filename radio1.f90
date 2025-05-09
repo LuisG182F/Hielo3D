@@ -12,9 +12,9 @@ use presicion
 !
 !*********************************************************************
 
-Integer function Vect1(c,ii,jj,kk,filas,columnas,ancho,radius) 
+Integer function Vect1(c,ii,jj,kk,filas,columnas,ancho) 
 IMPLICIT NONE  
-integer                                        :: filas,columnas,ancho,numero_gauss1,radius,numero_gauss2,rrrr,rrrrr
+integer                                        :: filas,columnas,ancho,numero_gauss1,numero_gauss2,rrrr,rrrrr
 integer                                        :: ii,jj,kk,jfl,jfr,jcl,jcr,jkl,jkr,mfl,mfr,mcl,mcr,mkl,mkr,s 
 integer,dimension(filas,columnas,ancho)        :: c 
 integer, dimension(98)                         :: vvecinos 
@@ -226,10 +226,12 @@ Vvecinos(93) = c(mfr, mcl,kk)
  
  VVecinos(97)=c(ii,jj,mkr)
  vvecinos(98)=c(ii,jj,mkl)
- 	  
+       
 
 numero_gauss1=0
 numero_gauss2=0
+rrrrr=1
+rrrr=1
 
 do s=1,98 
 if (vvecinos(s)/=0) rrrr=s 
@@ -273,6 +275,7 @@ integer                                        :: ii,jj,kk,jfl,jfr,jcl,jcr,jkl,j
 integer,dimension(filas,columnas,ancho)        :: c 
 integer, dimension(98)                         :: vvecinos 
 
+rrrr=1
 vec1=0
 
 jfl = ii-1 ;  if (jfl < 1)        jfl = filas 
@@ -480,7 +483,7 @@ Vvecinos(93) = c(mfr, mcl,kk)
  vvecinos(98)=c(ii,jj,mkl) 
  
 
- 	  
+       
 
 do s=1,98 
 if (vvecinos(s)/=0) rrrr=s 
@@ -738,13 +741,13 @@ end function
 !
 !  Esta rutina calcula si la particula esta centrada en una particula 
 !  Arroja una variable vec1=1 si esta  y vec1=0 si no esta .
-!
+!  
 !*********************************************************************
 
 Integer function Vet1(c,ii,jj,kk,filas,columnas,ancho) 
 IMPLICIT NONE  
 integer                                        :: filas,columnas,ancho,rrrr 
-integer                                        :: ii,jj,kk,jfl,jfr,jcl,jcr,jkl,jkr,mfl,mfr,mcl,mcr,mkl,mkr,s 
+integer                                        :: ii,jj,kk,jfl,jfr,jcl,jcr,jkl,jkr,s 
 integer,dimension(filas,columnas,ancho)        :: c 
 integer, dimension(98)                         :: vvecinos 
 
@@ -764,7 +767,7 @@ vet1=1
                  vvecinos(6) = c(jfr, jcl,jkl)
                  vvecinos(7) = c(jfr, jj,jkl)
                  vvecinos(8) = c(jfr, jcr,jkl)
-				 
+                 
                  vvecinos(9) = c(jfl, jcl,kk)
                  vvecinos(10) = c(jfl, jj,kk)
                  vvecinos(11) = c(jfl, jcr,kk)
@@ -773,7 +776,7 @@ vet1=1
                  vvecinos(14) = c(jfr, jcl,kk)
                  vvecinos(15) = c(jfr, jj,kk)
                  vvecinos(16) = c(jfr, jcr,kk)
-				 
+                 
                  vvecinos(17) = c(jfl, jcl,jkr)
                  vvecinos(18) = c(jfl, jj,jkr)
                  vvecinos(19) = c(jfl, jcr,jkr)
@@ -782,10 +785,10 @@ vet1=1
                  vvecinos(22) = c(jfr, jcl,jkr)
                  vvecinos(23) = c(jfr, jj,jkr) 
                  vvecinos(24) = c(jfr, jcr,jkr)
-				 
+                 
                  vvecinos(25) = c(ii, jj,jkl)
-                 vvecinos(26) = c(ii, jj,jkr)		
- 	  
+                 vvecinos(26) = c(ii, jj,jkr)        
+       
 
 
 do s=1,26

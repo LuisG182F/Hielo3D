@@ -11,9 +11,9 @@ use presicion
 !
 !*********************************************************************
 
-Integer function Vect2(c,ii,jj,kk,filas,columnas,ancho,radius) 
+Integer function Vect2(c,ii,jj,kk,filas,columnas,ancho) 
 IMPLICIT NONE  
-integer                                        :: filas,columnas,ancho,numero_gauss1,radius,numero_gauss2,rrrr,rrrrr
+integer                                        :: filas,columnas,ancho,numero_gauss1,numero_gauss2,rrrr,rrrrr
 integer                                        :: ii,jj,kk,jfl,jfr,jcl,jcr,jkl,jkr,mfl,mfr,mcl,mcr,mkl,mkr,s,sfl,sfr,skl,skr,scl,scr
 integer,dimension(filas,columnas,ancho)        :: c 
 integer, dimension(218)                        :: vvecinos 
@@ -414,6 +414,8 @@ scl=jj-3
 
 numero_gauss1=0
 numero_gauss2=0
+rrrr=1
+rrrrr=1
 
 do s=1,218
 if (vvecinos(s)/=0) rrrr=s 
@@ -882,11 +884,11 @@ Integer Function Vec2(c,ii,jj,kk,filas,columnas,ancho)
 
 integer::filas,columnas,ancho,s,rrrr
 integer:: ii,jj,kk,jfl,jfr,jcl,jcr,jkl,jkr,mfl,mfr,mcl,mcr,mkl,mkr,sfl,sfr,skl,skr,scl,scr
-		  
-
 
 integer,dimension(filas,columnas,ancho):: c
 integer, dimension(218) :: vvecinos
+
+rrrr=1
 
 
 jfl = ii-1 ;  if (jfl < 1)        jfl = filas
@@ -1307,7 +1309,7 @@ Integer Function Vet2(c,ii,jj,kk,filas,columnas,ancho)
     IMPLICIT NONE
 
 integer::filas,columnas,ancho
-integer:: ii,jj,kk,jfl,jfr,jcl,jcr,jkl,jkr,mfl,mfr,mcl,mcr,mkl,mkr,s,sfl,sfr,skl,skr,scl,scr
+integer:: ii,jj,kk,jfl,jfr,jcl,jcr,jkl,jkr,mfl,mfr,mcl,mcr,mkl,mkr,s
 		  
 
 

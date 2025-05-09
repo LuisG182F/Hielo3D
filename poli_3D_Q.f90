@@ -1,7 +1,7 @@
 !===========================================================================================================
 !Programa que calcula crecimento de grano con anisotropia de la energia con distintas formulas y
 !particulas de diferentes tamaños, crea una imagen con mascara y otra en de distintas caras.
-!este programa puede hacer simulaciones en 2D  si uno coloca un ancho 5 para particulas de radio 0 , 	
+!este programa puede hacer simulaciones en 2D  si uno coloca un ancho 5 para particulas de radio 0 ,     
 !un ancho 7 para particulas de radio 1, y un ancho de 9 con particulas de radio 2 
 !Simulaciones 2D o 3D con particuals de diferente radio 0,1 y 2 debe ponerse un ancho mayor de 9. 
 !El programa tambien permite empezar con un policristal de granos de tamaño 1 pixel cubico o bien de un policristal con granos grandes. 
@@ -40,10 +40,10 @@ use radio2
 implicit none
 
 ! Definir N como una constante
-integer, parameter :: N = 100
+integer, parameter :: N = 500
 
 ! Usar N para definir las dimensiones de las matrices
-integer, parameter :: filas = N, columnas = N, ancho = N, stoptime = 10
+integer, parameter :: filas = N, columnas = N, ancho = N, stoptime = 1000000
 character(len=60), parameter :: radio_fijo = 'n'
 
 
@@ -53,7 +53,7 @@ character(len=60), parameter :: radio_fijo = 'n'
 !ancho 5 para radio 0
 !ancho 7 para radio 1
 !ancho 9 para radio 2
-integer,parameter                       ::   paso=10,paso_area=10,paso_luz=100
+integer,parameter                       ::   paso=10000,paso_area=1000,paso_luz=500000
 !efectos probailistico de las particulas_ fraccion de particulas moviles
 real(pr),parameter                      ::   casino=1.0
 
@@ -66,8 +66,8 @@ integer                                 ::   time,puntero_s,swap,ii,jj,kk,w,num,
 integer                                 ::   jfl,jkl,jcl,jfr,jkr,jcr,volu,pastor,u1, guille
 !factores relacionados con la funcion de energia superficial y con la posibilidad de rotacion de los granos
 integer                                 ::   energy
-integer                                 ::   Q,numero_g,e,vecino,contar,contar1,mama,u
-integer                                 ::   mm,nn,ll,ms,Q_p,veci,borde,bordei,bordef,centro,bordeCT
+integer                                 ::   Q,numero_g,e,mama,u
+integer                                 ::   mm,nn,ll,ms,veci,bordei,bordef,centro,bordeCT
 integer                                 ::   matrix,tarzan,centro0,centro00,centro1,centro2,radius,mat_total1
 real(pr)                                ::   radio_g,fraccion_v,deltaGG,xx,ww,angulote,mini1,mini2
 real(pr)                                ::   Hi,difa,difa1,ruleta,area_g
@@ -83,7 +83,7 @@ character(len=60)                       ::   timew,volumen,volumen1,volumen2,vol
 character(len=10000)                    ::   directorio,directorio1
 
 
-															   
+                                                               
 
 call rand0
 
@@ -96,7 +96,7 @@ bordei=0
 u=1
 
 
-Q = ancho * filas * columnas	
+Q = ancho * filas * columnas    
 
 
 
@@ -149,7 +149,7 @@ directorio1 = 'inicial/'
 
 
 if (radio_fijo=='s') radius =1 
-									  
+                                      
 
 
 !******************************************************
@@ -164,7 +164,7 @@ if (respuesta=='n') then
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !+
-!+	 Lectura de policristal inicial
+!+     Lectura de policristal inicial
 !+            
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -186,11 +186,11 @@ if (respuesta=='n') then
      end do
      close(11)
 else
-	
+    
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 !+
-!+	 Generación del policristal inicial 
+!+     Generación del policristal inicial 
 !+              
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 
@@ -211,7 +211,7 @@ s=int(Q*Rand())+1
 if (s==0) goto 233
 
 c(i,j,k)=s
-									   
+                                       
 end do
 
 end do
@@ -226,7 +226,7 @@ end if
    end do
 !++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !+
-!+	 Generacion del listado de sitios
+!+     Generacion del listado de sitios
 !+
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -320,7 +320,7 @@ open(unit=13,file=archivo)
 !write(*,*)
 !write(*,*),'tiempo inicial         ' ,time0
 !write(*,*)
-!write(*,*),'numero de precipitados ' ,Q_p		
+!write(*,*),'numero de precipitados ' ,Q_p        
 !write(*,*),'__________________________________________________________'
 
 
@@ -341,14 +341,14 @@ print*,time
 
   
   
-	
-	BG_part0=0
-	BG_part1=0
-	BG_part2=0
-	
+    
+    BG_part0=0
+    BG_part1=0
+    BG_part2=0
+    
     puntero_s=Q
-	
-	
+    
+    
     
     
     
@@ -359,8 +359,8 @@ print*,time
       
        w=int(Rand()*(puntero_s))+1
        swap=vect(w)
-       ms=0	 
-	   
+       ms=0     
+       
        
        if(mod(swap,(filas*columnas))/=0) ms=1
             kk=int(swap/(filas*columnas))+ms
@@ -371,20 +371,20 @@ print*,time
             if (swap==Q) then
                      ii=filas
                      kk=ancho
-	                 jj=columnas
+                     jj=columnas
             end if
             
             
             sitioi=c(ii,jj,kk)
-			
-			
+            
+            
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !+
-!+	             Calculo de vecinos!!!!
+!+                 Calculo de vecinos!!!!
 !+
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             
-	jfl = ii-1 ;  if (jfl < 1)        jfl = filas
+    jfl = ii-1 ;  if (jfl < 1)        jfl = filas
                  jcl = jj-1 ;  if (jcl < 1)        jcl = columnas
                  jkl = kk-1 ;  if (jkl < 1)        jkl = ancho
                  jfr = ii+1 ;  if (jfr > filas)    jfr = 1  
@@ -399,7 +399,7 @@ print*,time
                  vecinos(6) = c(jfr, jcl,jkl)
                  vecinos(7) = c(jfr, jj,jkl)
                  vecinos(8) = c(jfr, jcr,jkl)
-				 
+                 
                  vecinos(9) = c(jfl, jcl,kk)
                  vecinos(10) = c(jfl, jj,kk)
                  vecinos(11) = c(jfl, jcr,kk)
@@ -408,7 +408,7 @@ print*,time
                  vecinos(14) = c(jfr, jcl,kk)
                  vecinos(15) = c(jfr, jj,kk)
                  vecinos(16) = c(jfr, jcr,kk)
-				 
+                 
                  vecinos(17) = c(jfl, jcl,jkr)
                  vecinos(18) = c(jfl, jj,jkr)
                  vecinos(19) = c(jfl, jcr,jkr)
@@ -417,12 +417,12 @@ print*,time
                  vecinos(22) = c(jfr, jcl,jkr)
                  vecinos(23) = c(jfr, jj,jkr)
                  vecinos(24) = c(jfr, jcr,jkr)
-				 
+                 
                  vecinos(25) = c(ii, jj,jkl)
-                 vecinos(26) = c(ii, jj,jkr)		
+                 vecinos(26) = c(ii, jj,jkr)        
             
         
-		  
+          
                  
 !-------------------------------------------------------------
 !       El sitio de red es una particula con c(i,j,k)==0
@@ -430,9 +430,9 @@ print*,time
 
 
                  if (sitioi==0) then
-				 
+                 
 
-				                    
+                                    
 !******************************************************************************************
 !                Centro Vet
 !
@@ -497,64 +497,63 @@ print*,time
                     
                          case(0)
                          
-                                print*, radius
                                bordei=Vec(c,ii,jj,kk,filas,columnas,ancho); 
                                matrix=Vecm(radius,ii,jj,kk,filas,columnas,ancho);
-							   !centro=Vet(c,ii,jj,kk,filas,columnas,ancho)
+                               !centro=Vet(c,ii,jj,kk,filas,columnas,ancho)
                                centro=1
-																						
+                                                                                        
                                                                            
                          case(1)
                                
-								
-								bordei=Vec1(c,ii,jj,kk,filas,columnas,ancho); 
+                                
+                                bordei=Vec1(c,ii,jj,kk,filas,columnas,ancho); 
                                 matrix=Vecm1(radius,ii,jj,kk,filas,columnas,ancho);
-								centro=Vet1(c,ii,jj,kk,filas,columnas,ancho)
+                                centro=Vet1(c,ii,jj,kk,filas,columnas,ancho)
                                                      
                             
                          case(2)
                                
-                              							   
-							   bordei=Vec2(c,ii,jj,kk,filas,columnas,ancho); 
+                                                             
+                               bordei=Vec2(c,ii,jj,kk,filas,columnas,ancho); 
                                 matrix=Vecm2(radius,ii,jj,kk,filas,columnas,ancho);
-								centro=Vet2(c,ii,jj,kk,filas,columnas,ancho)
-								
-								
+                                centro=Vet2(c,ii,jj,kk,filas,columnas,ancho)
+                                
+                                
                              
                     end select
 
                          if ((bordei==0) .or. (matrix==1) .or. (centro==0))  goto 145
-						
+                        
                         !particula no centrada o fuera de la region de calculo que no haga NADA            
                         
-						
+                        
                         Select case (radius)  
                     
                          case(0)
-						        
-						  BG_part0=BG_part0+1
-		                                                                     
+                                
+                          BG_part0=BG_part0+1
+                                                                             
                         case(1)
-						  BG_part1=BG_part1+1
-	    
+                          BG_part1=BG_part1+1
+        
                         case(2)
                                 
-						  BG_part2=BG_part2+1 	
-								
+                          BG_part2=BG_part2+1     
+                                
                               
                     end select
-						
-						ruleta=rand()
+                        
+                        ruleta=rand()
                         
                          if (ruleta>casino) goto 145
                          !print*, 'pase'
-						 
+                         
                         tarzan=0
                         23 e=int(Rand()*26)+1
                          
                         tarzan=tarzan+1
                         
-						
+                        
                         sitiof=vecinos(e)
                                         
                          
@@ -621,7 +620,7 @@ print*,time
                      !tarzan=0
                      
              
-			  
+              
 !---------------------------------------------------------------------------------
 !
 !   Voy a mover la particula a la nueva posición
@@ -632,7 +631,7 @@ print*,time
                                          do mm=-radius,radius,1
                                             do nn=-radius,radius,1
                                                do ll=-radius,radius,1
-											   
+                                               
                                                  c2(3+mm,3+nn,3+ll)=c(iii+mm,jjj+nn,kkk+ll)
                                                  !Print*, iii+mm,jjj+nn,kkk+ll
                                                end do
@@ -669,38 +668,38 @@ print*,time
                     Select case (radius)  
                     
                          case(0)
-						        veci=Ve(c,iii,jjj,kkk,filas,columnas,ancho);
+                                veci=Ve(c,iii,jjj,kkk,filas,columnas,ancho);
                                 !veci=0
-								matrix=Vecm(radius,iii,jjj,kkk,filas,columnas,ancho);
-								bordeCT=Vect0(c,iii,jjj,kkk,filas,columnas,ancho,radius);
+                                matrix=Vecm(radius,iii,jjj,kkk,filas,columnas,ancho);
+                                bordeCT=Vect0(c,iii,jjj,kkk,filas,columnas,ancho,radius);
                                                                              
                          case(1)
-						        
-								
+                                
+                                
                                 veci=Ve1(c,iii,jjj,kkk,filas,columnas,ancho);
                                 bordef=Vec1(c,iii,jjj,kkk,filas,columnas,ancho); 
                                 matrix=Vecm1(radius,iii,jjj,kkk,filas,columnas,ancho);
-                                bordeCT=Vect1(c,iii,jjj,kkk,filas,columnas,ancho,radius);
+                                bordeCT=Vect1(c,iii,jjj,kkk,filas,columnas,ancho);
                             
                          case(2)
                                 
-								
-								veci=Ve2(c,iii,jjj,kkk,filas,columnas,ancho);
-								bordef=Vec2(c,iii,jjj,kkk,filas,columnas,ancho); 
+                                
+                                veci=Ve2(c,iii,jjj,kkk,filas,columnas,ancho);
+                                bordef=Vec2(c,iii,jjj,kkk,filas,columnas,ancho); 
                                 matrix=Vecm2(radius,iii,jjj,kkk,filas,columnas,ancho);
-                                bordeCT=Vect2(c,iii,jjj,kkk,filas,columnas,ancho,radius);
+                                bordeCT=Vect2(c,iii,jjj,kkk,filas,columnas,ancho);
                               
                     end select
                     
                                   !if ((veci==1) .or.  (matrix==1) .or. (bordef==0)) then
-								  !tiene particulas al lado, esta fuera de la zona de callculo y la particula se salio del BG
-								  if ((veci==1) .or.  (matrix==1) .or. (bordeCT==0)) then
-								  !tiene particulas al lado, esta fuera de la zona de callculo y la particula se descentro del BG
-								  !if (((veci==1) .or.  (matrix==1)) .or. ((bordei==1) .and. (bordeCT==0))) then
-								  !tiene particulas al lado, esta fuera de la zona de callculo o si estaba en BG y se salio 
-								  !if ((veci==1) .or.  (matrix==1)) then
-								  !tiene particulas al lado, esta fuera de la zona de callculo 
-								  
+                                  !tiene particulas al lado, esta fuera de la zona de callculo y la particula se salio del BG
+                                  if ((veci==1) .or.  (matrix==1) .or. (bordeCT==0)) then
+                                  !tiene particulas al lado, esta fuera de la zona de callculo y la particula se descentro del BG
+                                  !if (((veci==1) .or.  (matrix==1)) .or. ((bordei==1) .and. (bordeCT==0))) then
+                                  !tiene particulas al lado, esta fuera de la zona de callculo o si estaba en BG y se salio 
+                                  !if ((veci==1) .or.  (matrix==1)) then
+                                  !tiene particulas al lado, esta fuera de la zona de callculo 
+                                  
                                   
                                         do mm=-radius,radius,1
                                             do nn=-radius,radius,1
@@ -725,22 +724,22 @@ print*,time
                                             
                                         else
                                         
-										goto 145
+                                        goto 145
                                         end if
                             else
-														
-							pastor= jjj + ( iii-1 ) * columnas + ( kkk-1 ) * ( filas*columnas )
+                                                        
+                            pastor= jjj + ( iii-1 ) * columnas + ( kkk-1 ) * ( filas*columnas )
                                         
                                         do u1=1,Q
                                         if (vect(u1)==pastor) w=u1
                                         end do
-                                        swap=vect(w)				
-			              
-							
-							
+                                        swap=vect(w)                
+                          
+                            
+                            
                                      end if
             
-				
+                
                  else
                  
 
@@ -755,14 +754,14 @@ print*,time
    
   !do mm=1,26 
   !       if (vecinos(mm)==0) goto 145   
-  !end do	
+  !end do    
 
 volu=par(c,ii,jj,kk,filas,columnas,ancho);
 if (volu==26) goto 145   
 
   
-			
-			
+            
+            
                  Hi=0
                    do i=1,26
                      difa=abs((Vecinos(i)-sitioi)*90.0/Q)
@@ -778,41 +777,41 @@ if (volu==26) goto 145
    if (energy/=3) then
     
                 
-				mini1=200
-				
-				do e=1,26
+                mini1=200
+                
+                do e=1,26
                  
-				 sitiof=vecinos(e)
+                 sitiof=vecinos(e)
                  mama=vecinos(e)
                  vecinos(e)=sitioi
                    
                     Hff(e)=0
                   
-				  do i=1,26
+                  do i=1,26
                     difa=abs((vecinos(i)-sitiof)*90.0/Q)
                     Hff(e)=Hff(e)+Lif(difa,energy,ang_l)
-				  end do
+                  end do
                    
-				   deltaG(e)=Hff(e)-Hi
-				   
-				   if (deltaG(e)/=0) then
-				   
-				   mini2=deltaG(e)
-				   if (mini2<mini1)   then 
-				   mini1=mini2
-                   u=e	
-				   else
-				   end if
-				   
-				   else
-				   end if
-				   
-				   
+                   deltaG(e)=Hff(e)-Hi
+                   
+                   if (deltaG(e)/=0) then
+                   
+                   mini2=deltaG(e)
+                   if (mini2<mini1)   then 
+                   mini1=mini2
+                   u=e    
+                   else
+                   end if
+                   
+                   else
+                   end if
+                   
+                   
                    vecinos(e)=mama
                  end do
-		                                 
-				sitiof=vecinos(u)
-				deltaGG=mini1
+                                         
+                sitiof=vecinos(u)
+                deltaGG=mini1
                                                 
 !&&&&&&&&&&&& Cristal puro uniforme &&&&&&&&&&&&&&&
 
@@ -822,7 +821,7 @@ if (volu==26) goto 145
                                                     if ((sitioi==sitiof) .or. (sitiof==0)) then 
                                                         goto 145
                                                     else
-                                                    end if									
+                                                    end if                                    
                                                 Hff(e)=0
                                                     do i=1,26
                                                         difa=abs((vecinos(i)-sitiof)*90.0/Q)
@@ -842,20 +841,20 @@ if (volu==26) goto 145
 difa=abs((sitioi-sitiof)*90.0/Q) 
 difa1=Lif(difa,energy,ang_l)
 
-	if (deltaGG<=0) then 
-	
-	c(ii,jj,kk)=sitiof
-	else
-	ww=0
-	if (difa1/=0) ww=(exp(-deltaGG/beta/difa1))*difa1
-	xx=Rand()
-		if (xx<ww) then
-		
-		c(ii,jj,kk)=sitiof
-		else 
-		c(ii,jj,kk)=sitioi
-		end if
-	end if
+    if (deltaGG<=0) then 
+    
+    c(ii,jj,kk)=sitiof
+    else
+    ww=0
+    if (difa1/=0) ww=(exp(-deltaGG/beta/difa1))*difa1
+    xx=Rand()
+        if (xx<ww) then
+        
+        c(ii,jj,kk)=sitiof
+        else 
+        c(ii,jj,kk)=sitioi
+        end if
+    end if
   end if
 
 
@@ -868,9 +867,9 @@ end do
 
 
 
-!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++								
+!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++                                
 !
-!	       Generacion de los archivos	 
+!           Generacion de los archivos     
 !
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -907,10 +906,10 @@ do k=1,ancho
    do i=1,filas
       do j=1,columnas
          s = c(i,j,k)
-		 if (s/=0) then
+         if (s/=0) then
          orient1(s) = orient1(s) + 1
-		 else
-		 end if
+         else
+         end if
       end do
    end do
 end do
@@ -957,13 +956,13 @@ end if
    write(13,3) time, radio_g, area_g,BG_part0,BG_part1,BG_part2,BG_part,mat_total1
    print*, time, radio_g, area_g,BG_part0,BG_part1,BG_part2,BG_part,mat_total1
    if (radio_g>=28) guille=1
-	
-   3	FORMAT(I10,',',F10.3,',',F10.3,',',I10,',',I10,',',I10,',',I10,',',I10) 
+    
+   3    FORMAT(I10,',',F10.3,',',F10.3,',',I10,',',I10,',',I10,',',I10,',',I10) 
 end if
 
    
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-!	 Generacion de policristal parcial (corte de luz)
+!     Generacion de policristal parcial (corte de luz)
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 if ((mod(time,paso_luz)==0) .or. (guille==1))  then

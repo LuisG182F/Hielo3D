@@ -15,7 +15,7 @@ use hielonn
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !+
-!+	 Funcion generacion de los precipitados iniciales
+!+     Funcion generacion de los precipitados iniciales
 !+
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -41,112 +41,112 @@ mat_total = columnas*filas*ancho*fraccion_v/100    !nro total de particulas
 
 
 
-		!particulas de diferente tamaño
-		
+        !particulas de diferente tamaño
+        
 
-		pepo= int(mat_total)
-		
-		
-
-
-				 w=0
-				 do while ((pepo-w)>=0)  
-					
-					
-					radius=int(Rand()*3)
-					
-					print*, pepo-w,radius
-							   
-					123 xx=Rand()*filas
-					ii=int(xx)
-					
-					
-					xx=Rand()*columnas
-					jj=int(xx)
-								
-					
-				  
-					xx=Rand()*ancho
-					kk=int(xx)
-					
-					
-		  
-		 Select case (radius)  
-							
-								 case(0)
-										
-								
-										matrix1=Vecm(radius,ii,jj,kk,filas,columnas,ancho); 
-										
-						   
-								 case(1)
-										
-										matrix1=Vecm1(radius,ii,jj,kk,filas,columnas,ancho);
-										! 
-										
-									
-								 case(2)
-										
-										matrix1=Vecm2(radius,ii,jj,kk,filas,columnas,ancho);
-										
-									  
-		end select
+        pepo= int(mat_total)
+        
+        
 
 
-
-		if 	((matrix1==0)  ) then
-
-
-		Select case (radius)  
-							
-								 case(0)
-										
-								
-										 
-										veci1=Ve(c,ii,jj,kk,filas,columnas,ancho);
-										!26
-						   
-								 case(1)
-										
-										
-										veci1=Ve1(c,ii,jj,kk,filas,columnas,ancho);
-										 !98
-								 case(2)
-										
-									   
-										veci1=Ve2(c,ii,jj,kk,filas,columnas,ancho);
-										 !218
-		end select
-
-
-		 
-		 if (veci1==0) then 
-		 
-
-		do mm=-radius,radius,1
-		do nn=-radius,radius,1
-		do ll=-radius,radius,1
+                 w=0
+                 do while ((pepo-w)>=0)  
+                    
+                    
+                    radius=int(Rand()*3)
+                    
+                    print*, pepo-w,radius
+                               
+                    123 xx=Rand()*filas
+                    ii=int(xx)
+                    
+                    
+                    xx=Rand()*columnas
+                    jj=int(xx)
+                                
+                    
+                  
+                    xx=Rand()*ancho
+                    kk=int(xx)
+                    
+                    
+          
+         Select case (radius)  
+                            
+                                 case(0)
+                                        
+                                
+                                        matrix1=Vecm(radius,ii,jj,kk,filas,columnas,ancho); 
+                                        
+                           
+                                 case(1)
+                                        
+                                        matrix1=Vecm1(radius,ii,jj,kk,filas,columnas,ancho);
+                                        ! 
+                                        
+                                    
+                                 case(2)
+                                        
+                                        matrix1=Vecm2(radius,ii,jj,kk,filas,columnas,ancho);
+                                        
+                                      
+        end select
 
 
 
-		c(ii+mm,jj+nn,kk+ll)=0
+        if     ((matrix1==0)  ) then
+
+
+        Select case (radius)  
+                            
+                                 case(0)
+                                        
+                                
+                                         
+                                        veci1=Ve(c,ii,jj,kk,filas,columnas,ancho);
+                                        !26
+                           
+                                 case(1)
+                                        
+                                        
+                                        veci1=Ve1(c,ii,jj,kk,filas,columnas,ancho);
+                                         !98
+                                 case(2)
+                                        
+                                       
+                                        veci1=Ve2(c,ii,jj,kk,filas,columnas,ancho);
+                                         !218
+        end select
+
+
+         
+         if (veci1==0) then 
+         
+
+        do mm=-radius,radius,1
+        do nn=-radius,radius,1
+        do ll=-radius,radius,1
 
 
 
-		end do
-		end do
-		end do
+        c(ii+mm,jj+nn,kk+ll)=0
 
-		w=w+(2*radius+1)**3           
-		else  
-		goto 123
-		end if
 
-		else
-		goto 123
-		end if
 
-		end do
+        end do
+        end do
+        end do
+
+        w=w+(2*radius+1)**3           
+        else  
+        goto 123
+        end if
+
+        else
+        goto 123
+        end if
+
+        end do
 
 
 
@@ -157,7 +157,7 @@ end subroutine Prep
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !+
-!+	 Funcion generacion de los precipitados iniciales
+!+     Funcion generacion de los precipitados iniciales
 !+
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -185,156 +185,156 @@ if (distri_b=='uniforme') then
 
 delta = int((mat_total)**(1.0/3.0))
 
-		do i=1,delta
-		do j=1,delta
-		do k=1,delta
+        do i=1,delta
+        do j=1,delta
+        do k=1,delta
 
 
-			ir=real(filas)/real(delta)*real(i)
-			ii=int(ir)
-			jr=real(columnas)/real(delta)*real(j)
-			jj=int(jr)
-			kr=real(ancho)/real(delta)*real(k)
-			kk=int(kr)
+            ir=real(filas)/real(delta)*real(i)
+            ii=int(ir)
+            jr=real(columnas)/real(delta)*real(j)
+            jj=int(jr)
+            kr=real(ancho)/real(delta)*real(k)
+            kk=int(kr)
 
 
-			Select case (radius)  
-								
-									 case(0)
-											
-									
-											matrix1=Vecm(radius,ii,jj,kk,filas,columnas,ancho); 
-							   
-									 case(1)
-											
-											matrix1=Vecm1(radius,ii,jj,kk,filas,columnas,ancho);
-											
-										
-									 case(2)
-											
-											matrix1=Vecm2(radius,ii,jj,kk,filas,columnas,ancho);
-										  
-			end select
+            Select case (radius)  
+                                
+                                     case(0)
+                                            
+                                    
+                                            matrix1=Vecm(radius,ii,jj,kk,filas,columnas,ancho); 
+                               
+                                     case(1)
+                                            
+                                            matrix1=Vecm1(radius,ii,jj,kk,filas,columnas,ancho);
+                                            
+                                        
+                                     case(2)
+                                            
+                                            matrix1=Vecm2(radius,ii,jj,kk,filas,columnas,ancho);
+                                          
+            end select
 
 
-			if 	((matrix1==0)  ) then
-												  
+            if     ((matrix1==0)  ) then
+                                                  
 
-				do mm=-radius,radius,1
-				do nn=-radius,radius,1
-				do ll=-radius,radius,1
+                do mm=-radius,radius,1
+                do nn=-radius,radius,1
+                do ll=-radius,radius,1
 
-				c(ii+mm,jj+nn,kk+ll)=0
+                c(ii+mm,jj+nn,kk+ll)=0
 
 
-				end do
-				end do
-				end do
+                end do
+                end do
+                end do
 
-			else
-			end if
+            else
+            end if
 
-		end do
-		end do
-		end do
+        end do
+        end do
+        end do
 
 
 else
 
 
-		pepo=int(mat_total/(2*radius+1)**3)
-		
-		   
-				 w=0
-		do while ((pepo-w)>=0)  
-					print*, pepo-w
-					
-					
-							   
-					122 xx=Rand()*filas
-					ii=int(xx)
-					
-					
-					xx=Rand()*columnas
-					jj=int(xx)
-								
-					
-				  
-					xx=Rand()*ancho
-					kk=int(xx)
-					
-					
-		  
-		                       Select case (radius)  
-							
-								 case(0)
-										
-								
-										matrix1=Vecm(radius,ii,jj,kk,filas,columnas,ancho); 
-										
-						   
-								 case(1)
-										
-										matrix1=Vecm1(radius,ii,jj,kk,filas,columnas,ancho);
-										! 
-										
-									
-								 case(2)
-										
-										matrix1=Vecm2(radius,ii,jj,kk,filas,columnas,ancho);
-										
-									  
-		                         end select
+        pepo=int(mat_total/(2*radius+1)**3)
+        
+           
+                 w=0
+        do while ((pepo-w)>=0)  
+                    print*, pepo-w
+                    
+                    
+                               
+                    122 xx=Rand()*filas
+                    ii=int(xx)
+                    
+                    
+                    xx=Rand()*columnas
+                    jj=int(xx)
+                                
+                    
+                  
+                    xx=Rand()*ancho
+                    kk=int(xx)
+                    
+                    
+          
+                               Select case (radius)  
+                            
+                                 case(0)
+                                        
+                                
+                                        matrix1=Vecm(radius,ii,jj,kk,filas,columnas,ancho); 
+                                        
+                           
+                                 case(1)
+                                        
+                                        matrix1=Vecm1(radius,ii,jj,kk,filas,columnas,ancho);
+                                        ! 
+                                        
+                                    
+                                 case(2)
+                                        
+                                        matrix1=Vecm2(radius,ii,jj,kk,filas,columnas,ancho);
+                                        
+                                      
+                                 end select
 
 
 
-		        if 	((matrix1==0)  ) then
+                if     ((matrix1==0)  ) then
 
 
-							Select case (radius)  
-												
-													 case(0)
-															
-													
-															 
-															veci1=Ve(c,ii,jj,kk,filas,columnas,ancho);
-															!26
-											   
-													 case(1)
-															
-															
-															veci1=Ve1(c,ii,jj,kk,filas,columnas,ancho);
-															 !98
-													 case(2)
-															
-														   
-															veci1=Ve2(c,ii,jj,kk,filas,columnas,ancho);
-															 !218
-							end select
+                            Select case (radius)  
+                                                
+                                                     case(0)
+                                                            
+                                                    
+                                                             
+                                                            veci1=Ve(c,ii,jj,kk,filas,columnas,ancho);
+                                                            !26
+                                               
+                                                     case(1)
+                                                            
+                                                            
+                                                            veci1=Ve1(c,ii,jj,kk,filas,columnas,ancho);
+                                                             !98
+                                                     case(2)
+                                                            
+                                                           
+                                                            veci1=Ve2(c,ii,jj,kk,filas,columnas,ancho);
+                                                             !218
+                            end select
 
-						 if (veci1==0) then 
-						 
+                         if (veci1==0) then 
+                         
 
-								do mm=-radius,radius,1
-								do nn=-radius,radius,1
-								do ll=-radius,radius,1
+                                do mm=-radius,radius,1
+                                do nn=-radius,radius,1
+                                do ll=-radius,radius,1
 
-								c(ii+mm,jj+nn,kk+ll)=0
+                                c(ii+mm,jj+nn,kk+ll)=0
 
-								end do
-								end do
-								end do
+                                end do
+                                end do
+                                end do
 
-						w=w+1            
-						else  
-						goto 122
-						end if
+                        w=w+1            
+                        else  
+                        goto 122
+                        end if
 
-				else
-				goto 122
-				end if
+                else
+                goto 122
+                end if
 
-		end do
+        end do
 
 
 
@@ -374,7 +374,7 @@ par=0
                  Vvecinos(6) = c(jfr, jcl,jkl)
                  Vvecinos(7) = c(jfr, jj,jkl)
                  Vvecinos(8) = c(jfr, jcr,jkl)
-				 
+                 
                  Vvecinos(9) = c(jfl, jcl,kk)
                  Vvecinos(10) = c(jfl, jj,kk)
                  Vvecinos(11) = c(jfl, jcr,kk)
@@ -383,7 +383,7 @@ par=0
                  Vvecinos(14) = c(jfr, jcl,kk)
                  Vvecinos(15) = c(jfr, jj,kk)
                  Vvecinos(16) = c(jfr, jcr,kk)
-				 
+                 
                  Vvecinos(17) = c(jfl, jcl,jkr)
                  Vvecinos(18) = c(jfl, jj,jkr)
                  Vvecinos(19) = c(jfl, jcr,jkr)
@@ -392,10 +392,10 @@ par=0
                  Vvecinos(22) = c(jfr, jcl,jkr)
                  Vvecinos(23) = c(jfr, jj,jkr)
                  Vvecinos(24) = c(jfr, jcr,jkr)
-				 
+                 
                  Vvecinos(25) = c(ii, jj,jkl)
                  Vvecinos(26) = c(ii, jj,jkr)
- 	  
+       
 
 
 
