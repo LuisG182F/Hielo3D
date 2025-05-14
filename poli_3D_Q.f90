@@ -37,10 +37,12 @@ use radio1
 
 use radio2
 
+
+
 implicit none
 
 ! Definir N como una constante
-integer, parameter :: N = 500
+integer, parameter :: N = 100
 
 ! Usar N para definir las dimensiones de las matrices
 integer, parameter :: filas = N, columnas = N, ancho = N, stoptime = 1000000
@@ -349,7 +351,9 @@ print*,time
     puntero_s=Q
     
     
-    
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!           aqui empieza el calculo de montecarlo
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     
 !*******Encontrar  ii,jj,kk
@@ -863,6 +867,9 @@ vect(puntero_s)=swap
 puntero_s=puntero_s-1
 end do
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!           aqui termina el calculo de montecarlo
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -980,6 +987,10 @@ if ((mod(time,paso_luz)==0) .or. (guille==1))  then
      end do
    end do
    close(20)
+   if (guille==1) then
+    print *, "Se detiene en el paso:", time
+    stop
+end if
    if (guille==1) stop
 end if
 end do
